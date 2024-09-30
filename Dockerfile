@@ -1,12 +1,19 @@
 # use prebuild alpine image with needed python packages from base branch
 FROM vojkovic/searxng:base
-ENV GID=991 UID=991 UWSGI_WORKERS=1 UWSGI_THREADS=16 IMAGE_PROXY=true REDIS_URL= LIMITER= BASE_URL= CAPTCHA= AUTHORIZED_API= NAME= SEARCH_DEFAULT_LANG= SEARCH_ENGINE_ACCESS_DENIED= PUBLIC_INSTANCE= \
-PRIVACYPOLICY= \
-DONATION_URL= \
-CONTACT=https://vojk.au \
-FOOTER_MESSAGE= \
-ISSUE_URL=https://github.com/privau/searxng/issues GIT_URL=https://github.com/privau/searxng GIT_BRANCH=main \
-UPSTREAM_COMMIT=a76b37fe75f50c8281fbec24499e74211ba2b67e
+ENV GID=991 \
+    UID=991 \
+    UWSGI_WORKERS=1 \
+    UWSGI_THREADS=16 \
+    IMAGE_PROXY=true \   
+    BASE_URL=https://s.sagarb.com/ \
+    NAME="Sorvx" \
+    SEARCH_ENGINE_ACCESS_DENIED=0 \
+    DONATION_URL=https://go.sagarb.com/donate/ \
+    CONTACT=https://sagarb.com/ \
+    ISSUE_URL=https://github.com/privau/searxng/issues \
+    GIT_URL=https://github.com/sagarbhusal0/search-engine-script \
+    GIT_BRANCH=main \
+    UPSTREAM_COMMIT=a76b37fe75f50c8281fbec24499e74211ba2b67e
 
 WORKDIR /usr/local/searxng
 
@@ -14,7 +21,7 @@ WORKDIR /usr/local/searxng
 RUN addgroup -g ${GID} searxng \
 && adduser -u ${UID} -D -h /usr/local/searxng -s /bin/sh -G searxng searxng \
 && git config --global --add safe.directory /usr/local/searxng \
-&& git clone https://github.com/privau/searxng-favicon . \
+&& git clone https://github.com/sagarbhusal0/search-engine . \
 && git reset --hard ${UPSTREAM_COMMIT} \
 && chown -R searxng:searxng . \
 && su searxng -c "/usr/bin/python3 -m searx.version freeze"
